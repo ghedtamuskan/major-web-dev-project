@@ -30,7 +30,7 @@ router.route ("/:id")
     upload.single('listing[image]'),   //32
     validateListing,
     wrapAsync (listingController.updateListing))  //update entered listing data
-.delete(isLoggedIn, isOwner,wrapAsync(listingController.destroyListing)  //16 delete route
+.delete(isLoggedIn, wrapAsync(listingController.destroyListing)  //16 delete route
 )
 
 //Edit route
