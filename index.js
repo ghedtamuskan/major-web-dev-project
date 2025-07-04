@@ -115,6 +115,12 @@ app.use("/listings/:id/reviews",reviewRouter) //20
 app.use("/",userRouter) //23 signup user
 
 // 17 ExpressError define
+// Redirect root "/" to "/listings"
+
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"Page not found !!"))
 })
