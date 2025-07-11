@@ -1,140 +1,446 @@
-body{
-    display:flex;
-    flex-direction: column;
-    min-height: 100vh;
-
-}
-
-.container{
-    flex:1;
+/* ================== BASE LAYOUT ================== */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+overflow-x: hidden;
    
 }
-
-
-/* Navbar */
-.navbar{
-    height:5rem;
-    background-color: rgb(250, 248, 248);
-}
-.fa-compass{
-    color:#fe424d;
-    font-size:2rem;
-}
-.nav-link{
-    color:#222222 !important;
+.container {
+  flex: 1;
 }
 
-/* Footer */
-.f-info-links a{
-    text-decoration: none;
-    color:#222222;
-    margin: 0.2rem;
-
-} 
-.f-info-links a:hover{
-    text-decoration: underline;
+/* ================== NAVBAR ================== */
+.navbar {
+  height: 5rem;
+  background-color: #faf8f8;
+  text-align: center;
 }
 
-.f-info-links ,
-.f-info-socials,
-.f-info-brand{
-    display: flex;
+/* 🎯 Search bar styling for desktop */
+.navbar-center {
+  position: absolute;
+  left: 40%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-inp {
+  border-radius: 23px;
+  padding: 0.3rem 1rem;
+  width: 20rem;
+}
+.navbar-nav .nav-item .nav-link {
+  white-space: nowrap; /* Prevent line breaks */
+  padding: 0.4rem 0.8rem;
+}
+
+.navbar-nav {
+  gap: 1rem; /* Add spacing between nav items */
+  display: flex;
+  align-items: center;
+}
+
+
+.btn-search {
+  background-color: #fe424d;
+  color: white;
+  border-radius: 23px;
+  padding: 0.4rem 1rem;
+  border: none;
+  white-space: nowrap;
+}
+.btn-search:hover {
+  background-color: #e41f2c;
+  color: white;
+}
+
+/* ✅ Hide search in small screen + show auth links */
+/* Prevent line-by-line flash BEFORE .show is added */
+@media (max-width: 768px) {
+  .navbar-collapse.collapsing,
+  .navbar-collapse.show {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
     align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar-nav {
+    flex-direction: row !important;
     justify-content: center;
-    width:100%;
+    gap: 1.5rem;
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .navbar-nav .nav-item {
+    white-space: nowrap;
+  }
+}
+
+
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 400px;
+ 
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .search-inp {
+    width: 100%;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .btn-search {
+    padding: 0.3rem 0.8rem;
+    font-size: 1rem;
+  }
+
+ 
+}
+
+
+/* 🔸 Make hamburger button cleaner */
+.navbar-toggler {
+  border: none !important;
+  padding: 0.2rem 0.4rem;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+
+/* ================== FOOTER ================== */
+.f-info {
+  text-align: center;
+  height: 8rem;
+  background-color: #ebebeb;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.f-info-links, .f-info-socials, .f-info-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.f-info-links a {
+  text-decoration: none;
+  color: #222;
+  margin: 0.2rem;
+}
+.f-info-links a:hover {
+  text-decoration: underline;
 }
 .f-info-socials i {
-    font-size: 1.2rem;
-    margin-right: 1rem;
-    cursor: pointer;
-   
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  cursor: pointer;
 }
-.f-info{
+
+/* ================== LISTING CARDS ================== */
+.card {
+  border: none;
+  background-color: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.listing-card {
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.card-img-top {
+  width: 100%;
+  height: 13rem;
+  object-fit: cover;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+}
+.card-body {
+  border: none;
+  padding: 1rem;
+}
+.card-text {
+  font-weight: 400 !important;
+}
+
+/* ================== CARD EFFECT ================== */
+.card-img-overlay {
+  opacity: 0;
+}
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: #fafafa;
+}
+
+/* ================== ANIMATIONS ================== */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-in-out both;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* ================== WISHLIST HEART ================== */
+.wishlist-icon-hover {
+  font-size: 1.5rem;
+  color: white;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+.wishlist-icon-hover:hover {
+  color: red;
+}
+
+/* ================== FILTER ICON BAR ================== */
+#filters {
+    margin:1.5rem ;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 2rem;
+  padding: 0 1rem;
+  scrollbar-width: none; /* Firefox */
+}
+#filters::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.filter {
+  flex: 0 0 auto;
+  text-align: center;
+  opacity: 0.7;
+  width: 4rem;
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.filter p {
+  font-size: 0.75rem;
+  margin: 0.28rem 0 0;
+}
+
+
+/* ================== TAX TOGGLE ================== */
+.tax-toggle {
+  opacity: 0.7;
+  border: 1px solid #ccc;
+  border-radius: 0.7rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  margin: 0.5rem auto;
+  width: fit-content;
+  max-width: 90vw;
+  background-color: #f9f9f9;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: 0.90rem;
+}
+.tax-info {
+  display: none;
+}
+.tax-info.show-tax {
+  display: inline;
+}
+
+
+
+/* ================== RESPONSIVE COLUMNS ================== */
+/* 1 card only if screen is tiny */
+.custom-row-cols > .col {
+  flex: 0 0 100%;
+  max-width: 90%;
+}
+/* 2 cards for small phones */
+@media (min-width: 300px) {
+  .custom-row-cols > .col {
+    flex: 0 0 50%;
+    max-width: 50%;
+    height:50%
+  }
+}
+/* 3 cards for medium screens */
+@media (min-width: 768px) {
+  .custom-row-cols > .col {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+  }
+}
+/* 4 cards for large screens */
+@media (min-width: 992px) {
+  .custom-row-cols > .col {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+/* ================== CARD & FILTER MOBILE TWEAKS ================== */
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 10rem;
+  }
+  .card-body {
+    padding: 0.75rem;
+  }
+  .card-body p {
+    font-size: 0.9rem;
+  }
+  #filters .filter {
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
+
+
+
+ /** Listing Show Page Styling (show.ejs) **/
+
+/* Container for the listing */
+
+  .listing-container {
+    border: none;
+  max-width: 70%;
+ margin: auto;
+    max-width: 550px;
+    
+  }
+
+  .listing-title {
+
     text-align: center;
-    height: 8rem;
-    background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
-}
+    margin-bottom: 1rem;
+    font-weight: 1.5rem;
+    
+  }
 
-/* Cards */
-.listing-card{
-border:none !important;
-margin-bottom: 2rem;
+  .listing-card {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+    width: 100%;
+    margin: 0 auto 2rem;
+    border-radius: 20px;
+  }
 
+  .show-img {
+    width: 100%;
+    height: 300px;
+    border-radius: 25px;
+  }
 
-}
-
-.card-img-top{
-    border-radius: 1.5rem !important;
-    width:100% !important;
-    object-fit: cover !important;
-
-}
-
-
-.card-text{
-    font-weight: 400 !important;
-}
-
-.listing-link{
-    text-decoration: none;
-}
-
-/* Card-effect */
-
-.card-img-overlay{
-    opacity:0;
-}
-.card-img-overlay:hover{
-    opacity:0.2;
-    background-color:rgb(250, 250, 250);
-}
-/* new page */
-.add-btn,.edit-btn{
-    background-color:#fe424d !important;
-border:none !important;
-}
-
-.add-btn:hover{
-    opacity: 0.8;
-}
-
-/* show page */
-
-.show-img{
-    background-image: cover;
- height:45vh;
-
-}
-.list-details{
-   margin: auto;
+  .list-details {
     list-style: none;
-    padding:0
+    padding: 0;
+    margin: 1.5rem 0;
+  }
 
-}
-
-.listing-container{
-    display: flex;
-    flex-direction: column;
-  align-items: center;}
+  .list-details p {
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
   
 
-.list-btns{
-    display:flex
+  .review-form {
+  margin-top: 2rem; /* Push whole section up */
 }
 
-.card-body{
-    border: none;
-}
+  .review-form h4,
+  .all-reviews h4 {
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
 
-/* map */
-#map{
+  .all-reviews .review-item {
+    margin-bottom: 2rem;
+  }
+
+  .review-item p {
+    margin: 0.2rem 0;
+  }
+
+  #map {
     height: 350px;
-    width:80vh;
+    margin-top: 2rem;
     border-radius: 10px;
+      overflow: hidden;
+
+  };
+
+
+
+
+  @media (max-width: 768px) {
+    .listing-container {
+      padding: 1rem;
+        max-width: 90%;
+    padding: 0.75rem;
+    }
+    .show-img {
+    max-height: 220px;
+  }
+  }
+
+
+.rating-stars {
+  display: flex;
+  direction: rtl; /* reverse direction for right-to-left */
+  flex-direction: row;
 }
+
+.rating-stars input {
+  display: none;
+}
+
+.rating-stars label {
+  font-size: 1.6rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Hover fill from right to left */
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+  color: gold;
+}
+
+/* Checked fill from right to left */
+.rating-stars input:checked ~ label {
+  color: #ccc;
+}
+.rating-stars input:checked + label,
+.rating-stars input:checked + label ~ label {
+  color: gold;
+}
+
+
+
+
+
 
 

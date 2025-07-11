@@ -6,6 +6,11 @@ mapboxgl.accessToken = mapToken;
         zoom: 9 // starting zoom
 
     });
+    // Disable scroll zoom by default so it doesn't block page scroll
+map.scrollZoom.disable();
+
+
+
   
 
 //33  map marker using mapbos jl-js
