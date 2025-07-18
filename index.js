@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV != "production"){   //31
+if (process.env.NODE_ENV !== "production"){   //31
 require ('dotenv').config();
 }
 
@@ -20,7 +20,7 @@ const User = require("./models/user.js")
 const listingRouter = require("./routes/listing.js") // 19 using express.router
 const reviewRouter = require("./routes/review.js") //20 using express.router
 const userRouter = require("./routes/user.js")   //23 signup user -GET
-const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = process.env.MONGO_URL;
 
 //2 starting server
 app.listen(8080,()=>{

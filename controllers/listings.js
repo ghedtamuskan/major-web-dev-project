@@ -21,11 +21,17 @@ module.exports.index =  async(req,res)=>{
                 path:"author"
             }
         })       //populate to get review object ID data
+        .populate("owner")
+
        if(!listing){
             req.flash("error","listing you requested does not exist!")
             res.redirect("/listings")
         }
-    res.render("./listings/show.ejs",{listing})
+    res.render("./listings/show.ejs",{
+        listing,
+           MAP_TOKEN: process.env.MAP_TOKEN   // ✅ Pass Mapbox token to EJS
+        
+    })
     }
 
     module.exports.createListing=async(req,res,next)=>{    //32 geocoding

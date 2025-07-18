@@ -1,58 +1,46 @@
-//8 requiring things from  data.js and listing.js(models)
-const dotenv = require("dotenv"); 
-dotenv.config();                  
+const dotenv = require("dotenv");
+dotenv.config();
 
-const mongoose= require("mongoose")
-const initData = require ("./data.js")  //sample data for our listings schema
-const Listing = require( "../models/listing.js")  // listings schema 
-const User = require("../models/user.js"); // ✅ Required now
-  
+const mongoose = require("mongoose");
+const initData = require("./data.js");
+const Listing = require("../models/listing.js");
+const User = require("../models/user.js");
 
-async function main() {
-  await mongoose.connect(process.env.ATLASDB_URL);
-  console.log("✅ Connected to MongoDB Atlas");
-}
+mongoose.connect(process.env.MONGO_URL, {
+})
+.then(async () => {
+  console.log("✅ Connected to MongoDB");
 
+  const initDB = async () => {
+    // Find user by username or email (you can change this condition)
+    const user = await User.findOne({ username: "muskan" }); // or use { email: "muskan@example.com" }
 
-//9 function for initializing db
+    if (!user) {
+      console.error("❌ User not found! Please create the user before running initDB.");
+      return;
+    }
 
-const initDB = async () => {
-  try {
-    // 🧹 Delete old users and listings
-    await User.deleteMany({});
-    await Listing.deleteMany({});
-    console.log("🗑️ Old users and listings deleted");
-
-    // 👤 Create new test user
-    const user = new User({
-      email: "muskan@example.com",
-      username: "muskan",
-    });
-    await user.save();
-    console.log("👤 Test user created:", user.username);
-
-    // 📦 Add owner's ID to each listing
-    const listingsWithOwner = initData.data.map((listing) => ({
-      ...listing,
+    const dataWithOwner = initData.data.map(obj => ({
+      ...obj,
       owner: user._id,
     }));
 
-    // ➕ Insert new listings
-    await Listing.insertMany(listingsWithOwner);
-    console.log("✅ Listings seeded with owner:", user.username);
+    await Listing.deleteMany({});
+    console.log("🗑️ Old listings deleted");
 
-    mongoose.disconnect();
-  } catch (err) {
-    console.error("❌ Error while seeding DB:", err);
-  }
-};
+    await Listing.insertMany(dataWithOwner);
+    console.log("✅ Sample listings inserted with dynamic owner:", user._id);
+  };
 
-// ✅ Step 3: Run it
-main()
-  .then(() => initDB())
-  .catch((err) => console.error("❌ DB connection failed:", err));
+  await initDB();
+  mongoose.connection.close();
+})
+.catch((err) => {
+  console.log("Mongo URL:", process.env.MONGO_URL);
+  console.error("❌ MongoDB connection error:", err);
+});
 
-  
+
 
 
 

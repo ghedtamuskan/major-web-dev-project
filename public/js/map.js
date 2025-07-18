@@ -1,25 +1,35 @@
+document.addEventListener("DOMContentLoaded", function () {
+  mapboxgl.accessToken = mapToken;
 
-mapboxgl.accessToken = mapToken;
-    const map = new mapboxgl.Map({
-        container: 'map', // container ID
-        center:listing.geometry.coordinates, // starting position [lng, lat]. Note that lat must be set between -90 and 90
-        zoom: 9 // starting zoom
+  let coordinates = listing?.geometry?.coordinates;
 
-    });
-    // Disable scroll zoom by default so it doesn't block page scroll
-map.scrollZoom.disable();
+  // ⛑ If empty, use fallback coordinates (e.g., Delhi)
+  if (!coordinates || !Array.isArray(coordinates) || coordinates.length !== 2) {
+    console.warn("⚠️ Using fallback coordinates for map.");
+    coordinates = [77.2090, 28.6139]; // Delhi
+  }
 
+  const map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/mapbox/outdoors-v12",
+    center: coordinates,
+    zoom: 9,
+  });
+map.scrollZoom.disable();  // disable scroll-zooming on map
 
+  map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-  
-
-//33  map marker using mapbos jl-js
-    const marker = new mapboxgl.Marker({ color: "red" }) //listing geometry.coordinates
-        .setLngLat(listing.geometry.coordinates)
-        .setPopup(
-       new mapboxgl.Popup({ offset: 25 }).setHTML(
-            `<h5>${listing.title}</h5><p>Exact Location will be provided after booking </p>`
+  map.on("load", () => {
+    new mapboxgl.Marker({ color: "green" })
+      .setLngLat(coordinates)
+      .setPopup(
+        new mapboxgl.Popup({ offset: 25 }).setHTML(
+          `<h5>${listing.title}</h5><p>Exact location will be shared after booking.</p>`
         )
-    )
-        .addTo(map);
+      )
+      .addTo(map);
+  });
+});
+
+
 

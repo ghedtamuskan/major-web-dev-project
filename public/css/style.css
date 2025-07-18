@@ -7,31 +7,38 @@ overflow-x: hidden;
    
 }
 .container {
-  flex: 1;
+max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
+#map {
+  height: 300px;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+
 
 /* ================== NAVBAR ================== */
 .navbar {
   height: 5rem;
   background-color: #faf8f8;
   text-align: center;
+    position: relative;
 }
 
 /* 🎯 Search bar styling for desktop */
 .navbar-center {
   position: absolute;
-  left: 40%;
+  left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.search-inp {
-  border-radius: 23px;
-  padding: 0.3rem 1rem;
-  width: 20rem;
-}
+
 .navbar-nav .nav-item .nav-link {
   white-space: nowrap; /* Prevent line breaks */
   padding: 0.4rem 0.8rem;
@@ -44,30 +51,20 @@ overflow-x: hidden;
 }
 
 
-.btn-search {
-  background-color: #fe424d;
-  color: white;
-  border-radius: 23px;
-  padding: 0.4rem 1rem;
-  border: none;
-  white-space: nowrap;
-}
-.btn-search:hover {
-  background-color: #e41f2c;
-  color: white;
-}
+
 
 /* ✅ Hide search in small screen + show auth links */
 /* Prevent line-by-line flash BEFORE .show is added */
 @media (max-width: 768px) {
-  .navbar-collapse.collapsing,
+  .navbar-collapse.collapsing .navbar-nav
   .navbar-collapse.show {
     display: flex !important;
     flex-direction: row !important;
     justify-content: center !important;
     align-items: center;
     gap: 2rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+     white-space: nowrap;
   }
 
   .navbar-nav {
@@ -83,12 +80,8 @@ overflow-x: hidden;
   }
 }
 
-
-
-.search-bar {
-  flex-grow: 1;
-  max-width: 400px;
- 
+.container-fluid{
+    margin:1rem
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
@@ -437,8 +430,6 @@ overflow-x: hidden;
 .rating-stars input:checked + label ~ label {
   color: gold;
 }
-
-
 
 
 

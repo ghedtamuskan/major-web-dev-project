@@ -1,13 +1,9 @@
 <!-- 13.1 when click on link then show data -->  
 <% layout("/layouts/boilerplate")%>
-<script>
-    const mapToken = "<%= process.env.MAP_TOKEN %>"
-    const listing =<%-JSON.stringify(listing)%>;
-   
-</script>
+
 <body> <br>
     <!-- 13 show listings -->
-    <body>
+    
   <div class="listing-container ">
     <h3 class="listing-title"><%= listing.title %></h3>
 
@@ -15,7 +11,7 @@
       <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
       <div class="card-body">
         <ul class="list-details">
-          <p>Owned by - <i><%= listing.owner.username %></i></p>
+          <p>Owned by - <i><%= listing.owner? listing.owner.username:"Unknown user" %></i></p>
           <p><b><%= listing.description %></b></p>
           <p>₹<%= listing.price.toLocaleString("en-IN") %> /-</p>
           <p><%= listing.location %> , &nbsp;<%= listing.country %></p>
@@ -63,7 +59,8 @@
       </div>
     <% } %>
 <!-- show reviews -->
-   <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 g-3 mt-1 ">
+<h3 style="color:red ">Reviews and Ratings</h3>
+   <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-2  mt-1 ">
 
   <% for (review of listing.reviews) { %>
   <div class="col">
@@ -88,7 +85,23 @@
     <div id="map"></div>
   </div>
 
+
+
+</div> <!-- end of map container -->
+
+<% if (typeof listing !== 'undefined') { %>
+  <script>
+    const mapToken = "<%= process.env.MAP_TOKEN %>";
+    const listing = <%- JSON.stringify(listing) %>;
+  </script>
+
+  <!-- ✅ Move this here, after defining listing -->
   <script src="/js/map.js"></script>
+<% } %>
+
+</body>
+
+
 </body>
 
 </html>
