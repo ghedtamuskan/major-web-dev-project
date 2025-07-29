@@ -6,39 +6,55 @@ const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 const User = require("../models/user.js");
 
-mongoose.connect(process.env.MONGO_URL, {
-})
-.then(async () => {
-  console.log("✅ Connected to MongoDB");
+mongoose.connect(process.env.MONGO_URL)
+  .then(async () => {
+    console.log("✅ Connected to MongoDB");
 
-  const initDB = async () => {
-    // Find user by username or email (you can change this condition)
-    const user = await User.findOne({ username: "muskan" }); // or use { email: "muskan@example.com" }
+    const initDB = async () => {
+      // Check or create Muskan admin user
+let adminUser = await User.findOne({ username: "muskan" });
+if (!adminUser) {
+  adminUser = await User.register(
+    new User({ username: "muskan", email: "muskan@example.com" }),
+    "admin1234"  // ✅ Save this password securely
+  );
+  console.log("👩‍💻 Admin user 'muskan' created");
+} else {
+  console.log("👩‍💻 Admin user 'muskan' already exists");
+}
 
-    if (!user) {
-      console.error("❌ User not found! Please create the user before running initDB.");
-      return;
-    }
+      // Check or create demo user
+      let demoUser = await User.findOne({ username: "demoUser" });
+      if (!demoUser) {
+        demoUser = await User.register(
+          new User({ username: "demoUser", email: "demo@example.com" }),
+          "1234"
+        );
+        console.log("👤 Demo user created");
+      } else {
+        console.log("👤 Demo user already exists");
+      }
 
-    const dataWithOwner = initData.data.map(obj => ({
-      ...obj,
-      owner: user._id,
-    }));
+      // OPTIONAL: Add sample listings under demo user
+      const dataWithOwner = initData.data.map(obj => ({
+        ...obj,
+        owner: adminUser._id,
+      }));
 
-    await Listing.deleteMany({});
-    console.log("🗑️ Old listings deleted");
+      await Listing.deleteMany({});
+      console.log("🗑️ Old listings deleted");
 
-    await Listing.insertMany(dataWithOwner);
-    console.log("✅ Sample listings inserted with dynamic owner:", user._id);
-  };
+      await Listing.insertMany(dataWithOwner);
+      console.log("✅ Sample listings inserted with demo user as owner");
+    };
 
-  await initDB();
-  mongoose.connection.close();
-})
-.catch((err) => {
-  console.log("Mongo URL:", process.env.MONGO_URL);
-  console.error("❌ MongoDB connection error:", err);
-});
+    await initDB();
+    mongoose.connection.close();
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+  });
+
 
 
 

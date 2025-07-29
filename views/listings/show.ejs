@@ -3,8 +3,27 @@
 
 <body> <br>
     <!-- 13 show listings -->
-    
+<% if (!currUser) { %>
+  <div id="toast-message" class="position-fixed  end-0 p-3" style=" top:140px;  z-index: 1055;">
+    <div class="toast show align-items-center bg-gray text-dark border-0 shadow rounded-3" role="alert">
+      <div class="d-flex">
+        <div class="toast-body">
+          <strong>Welcome👋</strong> Please 
+          <a href="/login" class="text-primary fw-semibold text-decoration-none">log in</a> or 
+          <a href="/signup" class="text-primary fw-semibold text-decoration-none">sign up</a> 
+          to access more features like creating and editing listings
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+
   <div class="listing-container ">
+
+
+
     <h3 class="listing-title"><%= listing.title %></h3>
 
     <div class=" listing-card">
@@ -59,7 +78,16 @@
       </div>
     <% } %>
 <!-- show reviews -->
-<h3 style="color:red ">Reviews and Ratings</h3>
+<% if (!currUser) { %>
+  <div class="review-container position-relative">
+    <h3 class="text-danger">Reviews and Ratings</h3>
+    <div class="login-overlay-msg">🔒 Please <a href="/login" class="text-primary fw-semibold text-decoration-none">log in</a> to submit a review.</div>
+<% } else { %>
+  <div class="review-container">
+    <h3 class="text-danger">Reviews and Ratings</h3>
+<% } %>
+
+
    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-2  mt-1 ">
 
   <% for (review of listing.reviews) { %>
@@ -80,6 +108,7 @@
 
   <% } %>
 </div>
+</div>
 
     <h3 class="mt-4">Where you'll be</h3>
     <div id="map"></div>
@@ -91,15 +120,27 @@
 
 <% if (typeof listing !== 'undefined') { %>
   <script>
+   
     const mapToken = "<%= process.env.MAP_TOKEN %>";
     const listing = <%- JSON.stringify(listing) %>;
   </script>
 
-  <!-- ✅ Move this here, after defining listing -->
+
   <script src="/js/map.js"></script>
 <% } %>
 
 </body>
+
+<script>
+  // Auto-hide toast after 8 seconds
+  setTimeout(() => {
+    const toast = document.querySelector('.toast');
+    if (toast) {
+      toast.classList.remove('show');
+      toast.classList.add('hide');
+    }
+  }, 8000);
+</script>
 
 
 </body>

@@ -1,22 +1,45 @@
-<% layout("/layouts/boilerplate")%>
-<!-- 24.2 LOGIN FORM EJS -->
+<% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <h2 class="col-6 offset-3">login on Wanderlust</h2><BR></BR>
-    <div class="col-6 offset-3">
+<!-- ✅ LOGIN FORM --->
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body p-4">
+
+        <h3 class="text-center mb-4 fw-bold">Log in to Wanderlust</h3>
+
         <form action="/login" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input name="username" id="username" type="text"  class="form-control" required><br>
-                <div class="valid-feedback"> looks good!</div>
-            </div>
-       
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input name="password" id="password" type="password"  class="form-control" required><br>
-            
-            </div>
-            <button class="btn btn-success">Login</button>
+          <!-- Username -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input name="username" id="username" type="text" class="form-control rounded-3" placeholder="Enter your username" required>
+            <div class="invalid-feedback">Please enter your username.</div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" id="password" type="password" class="form-control rounded-3" placeholder="Enter your password" required>
+            <div class="invalid-feedback">Please enter your password.</div>
+          </div>
+
+          <!-- Submit -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success w-50 rounded-3 fw-semibold">Login</button>
+          </div>
         </form>
+
+        <!-- Demo User Login -->
+        <div class="text-center mt-4">
+          <p class="text-muted small mb-0">
+            Just exploring? 
+            <a href="/demo-login" class="fw-semibold text-decoration-none">Continue as Demo User</a>
+            to experience the platform without signing up.
+          </p>
         </div>
+
+      </div>
     </div>
+  </div>
+</div>

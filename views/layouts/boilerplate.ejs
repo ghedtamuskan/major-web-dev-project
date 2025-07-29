@@ -14,16 +14,40 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.3/mapbox-gl.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>   
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+  <main class="flex-grow-1">
     <%- include("../includes/navbar.ejs") %>
     <div class="container">
         <%- include("../includes/flash.ejs") %>
         <%-body %>
     </div>
+    </main>
     <%- include("../includes/footer.ejs") %>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/js/script.js"></script>
+ 
+<!-- Auto-dismiss flash messages after 8 seconds -->
+<script>
+  setTimeout(() => {
+    const success = document.getElementById('flash-success');
+    const error = document.getElementById('flash-error');
+
+    if (success) {
+      success.classList.add('fade-out');
+      setTimeout(() => success.remove(), 500); // remove after fade animation
+    }
+
+    if (error) {
+      error.classList.add('fade-out');
+      setTimeout(() => error.remove(), 500);
+    }
+  }, 4000);
+</script>
+
+
+
 </body>
+
 </html>
 
 

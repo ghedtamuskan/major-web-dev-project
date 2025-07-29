@@ -1,28 +1,58 @@
-<% layout("/layouts/boilerplate")%>
-<!-- 23.2 SIGNUP FORM EJS -->
+<% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <h2 class="col-6 offset-3">SignUp on Wanderlust</h2><BR></BR>
-    <div class="col-6 offset-3">
-        <form action="/signup" method="POST" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input name="username" id="username" type="text"  class="form-control" required><br>
-                <div class="valid-feedback"> looks good!</div>
-            </div>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2 class="text-center mb-3 fw-semibold">Create Your Wanderlust Account</h2>
+      <p class="text-center text-muted mb-4">
+        Join our community to explore, list, and review amazing destinations.
+      </p>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input name="email" type="email"  class="form-control"><br>
-        
-            </div>
-       
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input name="password" id="password" type="password"  class="form-control" required><br>
-            
-            </div>
-            <button class="btn btn-success">SignUp</button>
-        </form>
+      <form action="/signup" method="POST" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+          <input name="username" id="username" type="text" class="form-control" required>
+          <div class="invalid-feedback">Please enter a valid username.</div>
         </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email (optional)</label>
+          <input name="email" type="email" class="form-control">
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+          <input name="password" id="password" type="password" class="form-control" required>
+          <div class="invalid-feedback">Please enter your password.</div>
+        </div>
+
+        <button class="btn btn-success w-50 rounded-3 fw-semibold ">Sign Up</button>
+      </form>
+
+      <!-- Demo login note -->
+      <div class="text-center mt-4">
+        <p class="text-muted small">
+          Prefer not to create an account?  
+          <a href="/demo-login" class="fw-semibold text-decoration-none">Log in as Demo User</a> to explore the platform.
+        </p>
+      </div>
     </div>
+  </div>
+</div>
+
+<script>
+  // Bootstrap validation
+  (function () {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>

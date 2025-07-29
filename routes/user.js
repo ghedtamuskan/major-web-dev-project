@@ -23,6 +23,24 @@ passport.authenticate("local",
 }),
 userController.login
 )
+// demo user login
+router.get("/demo-login", async (req, res, next) => {
+  try {
+    const demoUser = await User.findOne({ username: "demoUser" });
+    if (!demoUser) {
+      req.flash("error", "Demo user not found");
+      return res.redirect("/login");
+    }
+
+    req.login(demoUser, (err) => {
+      if (err) return next(err);
+      req.flash("success", "Logged in as Demo User");
+      res.redirect("/listings");
+    });
+  } catch (e) {
+    next(e);
+  }
+});
 
 //26 logout route
 router.get("/logout",userController.logout)
