@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "16.13.0"
+    "node": "24.x"
   },
   "name": "major-web-dev-project",
   "version": "1.0.0",
